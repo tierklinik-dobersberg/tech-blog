@@ -1,0 +1,21 @@
+<!-- DNS Preconnect and pre-resolve -->
+<meta http-equiv="x-dns-prefetch-control" content="on">
+<link rel="preconnect" href="//cdnjs.cloudflare.com">
+<link rel="preconnect" href="//fonts.gstatic.com" crossorigin="anonymous">
+<link rel="preconnect" href="//cdn.jsdelivr.net">
+<link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+<link rel="dns-prefetch" href="//fonts.gstatic.com">
+<link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+
+{{/* styles */}}
+{{ $options := dict "inlineImports" true }}
+{{ $styles := resources.Get "scss/styles.scss" }}
+{{ $styles = $styles | resources.ToCSS | resources.PostCSS $options }}
+
+{{ if hugo.IsProduction }}
+{{ $styles = $styles | minify | fingerprint | resources.PostProcess }}
+{{ end }}
+
+<style crossorigin="anonymous" media="all" type="text/css" integrity="{{ $styles.Data.Integrity }}">
+    {{ $styles.Content | safeCSS }}
+</style>

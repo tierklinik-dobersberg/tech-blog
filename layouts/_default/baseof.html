@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  {{ partial "head.html" . }}
+  {{ partial "style.html" . }}
+</head>
+
+<body>
+  {{ partial "header.html" . }}
+
+  <main class="container flex justify-center px-4 lg:mx-auto">
+    {{ block "main" . }}{{ end }}
+  </main>
+
+  {{ if hugo.IsProduction }}
+	{{ partialCached "footer.html" . }}
+	{{ partialCached "script.html" . }}
+	{{ else }}
+	{{ partial "footer.html" . }}
+	{{ partial "script.html" . }}
+	{{ end }}
+</body>
+
+</html>

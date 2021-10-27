@@ -1,0 +1,36 @@
+baseURL: 'http://example.org/'
+languageCode: 'en-us'
+title: 'Tech & IT Blog'
+
+params:
+  cookies:
+    enable: true
+    content: This site uses cookies. By continuing to use this website, you agree to their use.
+    button: I Accept
+
+menu:
+  main:
+  - identifier: categories
+    name: Categories
+    url: /categories/
+    weight: 1
+  - identifier: nomad
+    name: Nomad
+    url: /categories/nomad/
+    parent: categories
+    weight: 0
+  - identifier: website
+    name: Tierklinik Dobersberg
+    params:
+      class: button
+    url: https://tierklinikdobersberg.at
+    weight: 0
+
+module:
+  hugoVersion:
+    extended: false
+    min: "0.75.0"
+
+build:
+  # Used by PurgeCSS
+  writeStats = true

@@ -1,0 +1,20 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "components/all.scss";
+
+html {
+    font-size: 14px;
+}
+
+@screen md {
+    html {
+        font-size: 16px;
+    }
+}
+
+body {
+    @apply antialiased dark:bg-gray-900;
+}

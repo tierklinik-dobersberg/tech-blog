@@ -1,0 +1,23 @@
+{
+  "name": "tech-blog",
+  "version": "0.1.0",
+  "description": "The tech-blog of the veterinary clinic in Dobersberg",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tierklinik-dobersberg/tech-blog.git"
+  },
+  "author": "Patrick Pacher <patrick at tierklinikdobersberg.at>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tierklinik-dobersberg/tech-blog/issues"
+  },
+  "homepage": "https://github.com/tierklinik-dobersberg/tech-blog#readme",
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.4.1",
+    "autoprefixer": "^10.3.7",
+    "postcss": "^8.3.11",
+    "postcss-cli": "^9.0.1",
+    "postcss-purgecss": "^2.0.3",
+    "tailwindcss": "^2.2.17"
+  }
+}

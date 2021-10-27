@@ -1,0 +1,26 @@
+<!-- font family -->
+<script src="https://cdn.jsdelivr.net/gh/theprojectsomething/webfontloader@feature/google-fonts-v2/webfontloader.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+<script type="application/javascript">
+  WebFont.load({
+    google: {
+      api: 'https://fonts.googleapis.com/css2',
+      families: ['Lato:wght@400' ,'Open Sans:wght@400&display=swap'],
+      version: 2
+    },
+    active: () => {
+      sessionStorage.fontsLoaded = true
+    }
+  });
+</script>
+
+<!-- cookie -->
+{{ with site.Params.cookies }}
+{{ if .enable }}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.1/js.cookie.min.js"></script>
+
+<div x-data="{open: !Cookies.get('cookie-box')}"id="js-cookie-box" class="cookie-box" x-bind:class="open ? '' : 'cookie-box--hidden'">
+	{{.content | markdownify}}<span class="cookie-button" @click="Cookies.set('cookie-box', true); open = false">{{.button}}</span>
+</div>
+{{ end }}
+{{ end }}
