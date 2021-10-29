@@ -1,6 +1,12 @@
 const theme = require('tailwindcss/defaultTheme');
 const colors = require('tailwindcss/colors')
 const typography = require('@tailwindcss/typography');
+const forms = require('@tailwindcss/forms');
+const aspectRatio = require('@tailwindcss/aspect-ratio');
+const lineClamp = require('@tailwindcss/line-clamp');
+
+
+delete(colors['lightBlue'])
 
 module.exports = {
 	important: true, // See https://tailwindcss.com/docs/configuration#important
@@ -11,7 +17,7 @@ module.exports = {
 				'dark-mode': { 'raw': '(prefers-color-scheme: dark)' },
 			},
 			colors: {
-				'light-blue': colors.lightBlue,
+				'light-blue': colors.sky,
 				cyan: colors.cyan,
 			},
 			typography: (theme) => ({
@@ -102,5 +108,10 @@ module.exports = {
 			typography: ['dark'],
 		},
 	},
-	plugins: [typography]
+	plugins: [
+		typography,
+		forms,
+		aspectRatio,
+		lineClamp
+	]
 };

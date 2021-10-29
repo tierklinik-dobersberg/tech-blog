@@ -1,0 +1,36 @@
+<div class="footer">
+    <div class="container">
+        <nav>
+            {{ if site.Params.footer_left_label }}
+            <label>{{ site.Params.footer_left_label }}</label>
+            {{ end}}
+            <ul>
+            {{ range site.Menus.footer_left }}
+                <li><a href="{{ .URL }}">{{.Name}}</a></li>
+            {{ end }}
+            </ul>
+        </nav>
+
+        <nav>
+            {{ if site.Params.footer_middle_label }}
+            <label>{{ site.Params.footer_middle_label }}</label>
+            {{ end}}
+            <ul>
+            {{ range site.Menus.footer_middle }}
+                <li><a href="{{ .URL }}">{{.Name}}</a></li>
+            {{ end }}
+            </ul>
+        </nav>
+
+        <nav>
+            {{ if site.Params.footer_right_label }}
+            <label>{{ site.Params.footer_right_label }}</label>
+            {{ end}}
+            <ul>
+            {{ range site.Menus.footer_right }}
+                <li><a href="{{ .URL }}">{{.Name}}</a></li>
+            {{ end }}
+            </ul>
+        </nav>
+    </div>
+</div>

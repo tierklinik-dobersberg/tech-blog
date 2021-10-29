@@ -4,5 +4,12 @@ const autoprefixer = require('autoprefixer');
 
 module.exports = {
 	// eslint-disable-next-line no-process-env
-	plugins: [ tailwind, ...(process.env.HUGO_ENVIRONMENT === 'production' ? [ autoprefixer ] : []) ]
+	plugins: [ 
+		require('postcss-import'),
+		tailwind, 
+		require('postcss-flexbugs-fixes'),
+		require('postcss-nested'),
+		require('postcss-custom-properties'),
+		...(process.env.HUGO_ENVIRONMENT === 'production' ? [ autoprefixer ] : [])
+	]
 };

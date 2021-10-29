@@ -1,8 +1,54 @@
 {{ define "main" }}
-<article class="prose dark:prose-light lg:prose-xl">
-  <h1>
-    {{ .Title }}
-  </h1>
-  {{ .Content }}
-</article>
+
+{{/* Start of banner */}}
+  {{ with site.Params.banner }}
+  {{ if . }}
+  <div class="banner {{ .bannerClass | default "h-screen min-h-50w md:min-h-0 sm:h-screen-30 md:h-screen-40 lg:h-screen-50 text-center" }}" style="background-image: url('{{.image}}'); max-height: calc(100vh - 80px); {{ .bannerStyle | safeCSS | default ""}};">
+    <div class="banner-text {{ .bg_class | default "bg-opacity-25 dark:bg-opacity-10 bg-gray-500 dark:bg-gray-700 bg-no-repeat backdrop-filter backdrop-brightness-75" }}">
+      <h4 class="text-2xl font-semibold tracking-wide text-white sm:text-3xl lg:text-4xl text-shadow">
+        {{ .text | markdownify }}
+      </h4>
+    </div>
+
+    <a class="absolute block m-auto -ml-6 text-white bottom-6 sm:hidden left-1/2" href="#below-banner">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+      </svg> 
+    </a>
+  </div>
+
+  <div id="below-banner" class="pt-20 -mt-20"></div>
+  {{ partial "inline-style.html" "scss/banner.pcss"}}
+  {{ end }}
+  {{ end }}
+{{/* End of banner */}}
+
+<div class="container p-6 mx-auto md:p-10 lg:p-14">
+  {{/* Start of recent posts */}}
+    <div class="mb-4 md:mb-6 lg:mb-8">
+      <h2 class="text-2xl font-semibold text-gray-800 dark:text-gray-100">Recent Posts:</h2>
+      <span class="block -mt-1 text-gray-400 text-normal dark:text-gray-200">Here's a list of new stuff</span>
+    </div>
+    <ul class="flex flex-col flex-wrap sm:flex-row">
+    {{ range (where .Site.RegularPages "Type" "posts") }}
+      <li>
+        <a href="{{ .Permalink }}" class="flex flex-col flex-1 p-4 bg-white border border-gray-100 rounded shadow cursor-pointer dark:border-gray-600 md:p-6 lg:p-8 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-500">
+          <span class="text-xl font-medium text-gray-600 dark:text-gray-100">{{ .Title }}</span>
+          <span class="flex flex-row justify-between text-sm font-thin text-gray-400 dark:text-gray-200">
+            <span>{{ .Date.Format "Mon, Jan 2, 2006" }}</span>
+            <span>
+              <svg xmlns="http://www.w3.org/2000/svg" class="inline w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              {{ .ReadingTime }} min read
+            </span>
+          </span>
+        </a>
+      </li>
+    {{ end }}
+    </ul>
+  {{/* End of recent posts */}}
+</div>
+
+
 {{ end }}

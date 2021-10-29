@@ -1,0 +1,82 @@
+@import 'tailwindcss/base.css';
+@import 'tailwindcss/components.css';
+@import 'tailwindcss/utilities.css';
+
+@import 'components/all.pcss';
+
+@layer utilities {
+    @variants responsive {
+        .h-screen-10 {
+            height: 10vh !important;
+        }
+        .h-screen-20 {
+            height: 20vh !important;
+        }
+        .h-screen-30 {
+            height: 30vh !important;
+        }
+        .h-screen-40 {
+            height: 40vh !important;
+        }
+        .h-screen-50 {
+            height: 50vh !important;
+        }
+        .h-screen-60 {
+            height: 60vh !important;
+        }
+        .h-screen-70 {
+            height: 70vh !important;
+        }
+        .h-screen-80 {
+            height: 80vh !important;
+        }
+        .h-screen-90 {
+            height: 90vh !important;
+        }
+        
+        .min-h-10w {
+            min-height: 10vw;
+        }
+        .min-h-20w {
+            min-height: 20vw;
+        }
+        .min-h-30w {
+            min-height: 30vw;
+        }
+        .min-h-40w {
+            min-height: 40vw;
+        }
+        .min-h-50w {
+            min-height: 50vw;
+        }
+        .min-h-60w {
+            min-height: 60vw;
+        }
+        .min-h-70w {
+            min-height: 70vw;
+        }
+        .min-h-80w {
+            min-height: 80vw;
+        }
+        .min-h-90w {
+            min-height: 90vw;
+        }
+        .min-h-100w {
+            min-height: 100vw;
+        }
+    }
+}
+
+html {
+    font-size: 14px;
+}
+
+@screen md {
+    html {
+        font-size: 16px;
+    }
+}
+
+body {
+    @apply antialiased dark:bg-gray-900;
+}

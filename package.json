@@ -13,10 +13,18 @@
   },
   "homepage": "https://github.com/tierklinik-dobersberg/tech-blog#readme",
   "devDependencies": {
+    "@tailwindcss/aspect-ratio": "^0.3.0",
+    "@tailwindcss/forms": "^0.3.4",
+    "@tailwindcss/line-clamp": "^0.2.2",
     "@tailwindcss/typography": "^0.4.1",
     "autoprefixer": "^10.3.7",
     "postcss": "^8.3.11",
     "postcss-cli": "^9.0.1",
+    "postcss-css-variables": "^0.18.0",
+    "postcss-custom-properties": "^12.0.0",
+    "postcss-flexbugs-fixes": "^5.0.2",
+    "postcss-import": "^14.0.2",
+    "postcss-nested": "^5.0.6",
     "postcss-purgecss": "^2.0.3",
     "tailwindcss": "^2.2.17"
   }

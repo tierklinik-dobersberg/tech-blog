@@ -1,0 +1,95 @@
+@layer components {
+    .header {
+        @apply w-full;
+        @apply text-gray-700;
+        @apply bg-white;
+        @apply sticky;
+        @apply shadow;
+        @apply dark-mode:text-gray-200;
+        @apply dark-mode:bg-gray-800;
+
+        z-index: 1000;
+        top: 0px;
+
+        & .header-nav-container {
+            @apply flex flex-col;
+            @apply px-4 mx-auto;
+            @apply container;
+            @apply md:items-center md:justify-between md:flex-row md:px-6;
+            @apply lg:px-8;
+
+            & .header-title-container {
+                @apply flex flex-row justify-between items-center;
+                @apply p-4;
+
+                & a {
+                    @apply flex items-center;
+                    @apply text-lg font-semibold tracking-widest;
+                    @apply text-gray-900;
+                    @apply uppercase rounded-lg;
+                    @apply dark-mode:text-white;
+                    @apply focus:outline-none;
+
+                    & img {
+                        @apply mr-3;
+                        display: inline-block;
+                        width  : 48px;
+                        height : 48px;
+                    }
+
+                    &>span {
+                        @apply flex flex-col;
+
+                        &>span {
+                            @apply -mb-1;
+                            @apply text-xs tracking-normal;
+                        }
+                    }
+                }
+            }
+
+            & nav {
+                @apply flex-col flex-grow;
+                @apply pb-4;
+                @apply md:pb-0 md:justify-end md:flex-row;
+
+                &>a {
+                    @apply ml-1 px-4 py-2 mt-2;
+                    @apply text-sm;
+                    @apply bg-transparent;
+                    @apply font-semibold text-gray-900;
+                    @apply rounded-lg;
+                    @apply dark-mode:bg-gray-700 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none;
+
+                    &.button {
+                        @apply bg-blue-600 text-white ml-4;
+                    }
+
+                    &.nav--active {
+                        @apply text-gray-900 bg-gray-200;
+                    }
+                }
+            }
+        }
+    }
+
+    .dropdown {
+        @apply relative;
+
+        & button {
+            @apply flex flex-row items-center px-4 py-2 mt-2 w-full text-sm font-semibold text-left bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:focus:bg-gray-600 dark-mode:hover:bg-gray-600 md:w-auto md:inline md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none;
+        }
+
+        & .dropdown-menu {
+            @apply absolute right-0 z-30 mt-2 w-full rounded-md shadow-lg origin-top-right md:w-48;
+
+            &>div {
+                @apply px-2 py-2 bg-white rounded-md shadow dark-mode:bg-gray-700;
+            }
+
+            & .dropdown-item {
+                @apply block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none;
+            }
+        }
+    }
+}

@@ -7,8 +7,39 @@ params:
     enable: true
     content: This site uses cookies. By continuing to use this website, you agree to their use.
     button: I Accept
-
+  footer_left_label: "Tech & IT Blog"
+  footer_middle_label: "Veterinary Clinic"
+  footer_right_label: ""
+  banner:
+    image: /images/carmen.webp
+    #bannerClass: bg-fit h-screen-50
+    bannerStyle: |
+      background-position: 50% 19%;
+    text: |
+      Tech & IT Blog  
+      [Veterinary Clinic Dobersberg](//tierklinikdobersberg.at)
 menu:
+  footer_left:
+    - identifier: home
+      name: Home
+      url: /
+  footer_middle:
+    - identifier: privacy-statement
+      name: Privacy Statement
+      url: /about/#privacy-statement
+    - identifier: imprint
+      name: Imprint
+      url: /about/#Imprint
+    - identifier: github
+      name: Github
+      url: https://github.com/tierklinik-dobersberg
+  footer_right:
+  - identifier: cc
+    name: © 2021 Patrick Pacher
+    url: /about-author/
+  - identifier: hugo
+    name: Built with ❤️ using Hugo
+    url: https://gohugo.io
   main:
   - identifier: categories
     name: Categories
