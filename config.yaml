@@ -64,4 +64,4 @@ module:
 
 build:
   # Used by PurgeCSS
-  writeStats = true
+  writeStats: true

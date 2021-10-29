@@ -9,16 +9,11 @@ const lineClamp = require('@tailwindcss/line-clamp');
 delete(colors['lightBlue'])
 
 module.exports = {
-	important: true, // See https://tailwindcss.com/docs/configuration#important
 	darkMode: 'media',
 	theme: {
 		extend: {
 			screens: {
 				'dark-mode': { 'raw': '(prefers-color-scheme: dark)' },
-			},
-			colors: {
-				'light-blue': colors.sky,
-				cyan: colors.cyan,
 			},
 			typography: (theme) => ({
 				light: {

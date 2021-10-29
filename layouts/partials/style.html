@@ -8,7 +8,7 @@
 <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
 
 {{ if hugo.IsProduction }}
-{{ partialCached "inline-style.html" "scss/styles.pcss"}}
+{{ partialCached "inline-style.html" "styles.pcss"}}
 {{ else }}
-{{ partial "inline-style.html" "scss/styles.pcss"}}
+{{ partial "inline-style.html" "styles.pcss"}}
 {{ end }}
