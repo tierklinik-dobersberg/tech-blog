@@ -19,9 +19,9 @@ module.exports = {
 				light: {
 					css: [
 						{
-							color: theme('colors.gray.400'),
+							color: theme('colors.gray.300'),
 							'[class~="lead"]': {
-								color: theme('colors.gray.300'),
+								color: theme('colors.gray.200'),
 							},
 							a: {
 								color: theme('colors.white'),
@@ -55,7 +55,7 @@ module.exports = {
 								color: theme('colors.white'),
 							},
 							'figure figcaption': {
-								color: theme('colors.gray.400'),
+								color: theme('colors.gray.300'),
 							},
 							code: {
 								color: theme('colors.white'),
@@ -69,7 +69,7 @@ module.exports = {
 							},
 							thead: {
 								color: theme('colors.white'),
-								borderBottomColor: theme('colors.gray.400'),
+								borderBottomColor: theme('colors.gray.300'),
 							},
 							'tbody tr': {
 								borderBottomColor: theme('colors.gray.600'),
@@ -101,6 +101,7 @@ module.exports = {
 	variants: {
 		extend: {
 			typography: ['dark'],
+			display: ['dark'],
 		},
 	},
 	plugins: [

@@ -40,6 +40,12 @@ menu:
   - identifier: hugo
     name: Built with ❤️ using Hugo
     url: https://gohugo.io
+  - identifier: github
+    url: https://github.com/tierklinik-dobersberg/tech-blog
+    params:
+      image: /images/github-mark.png
+      image_dark: /images/github-mark-light.png
+      image_classes: mb-4
   main:
   - identifier: categories
     name: Categories

@@ -1,11 +1,14 @@
 ---
 title: "Setting up a static site using Hugo, Tailwind and PostCSS"
 date: 2021-10-28T20:59:47+02:00
-draft: false
+draft: true
 ---
 
 This post is going to describe how to setup a static site using Hugo, Tailwind
-and PostCSS. The setup described here is the same one use for this site and
+and PostCSS. In addition, we will add the typography and form and aspect-ratio
+plugins of Tailwind so your posts will look awesome right from the beginning.
+
+The setup described here is the same one use for this site and
 has been documented while creating it.
 
 ## Introduction
@@ -64,7 +67,7 @@ So, let's get started!
 
 ## Setting up the site
 
-First of all we will need to install hugo on my machine. Since I'm running on [Archlinux](https://archlinux.org)
+First of all we will need to install hugo on our local machine. Since I'm running on [Archlinux](https://archlinux.org)
 and use `yay` as an [AUR](https://aur.archlinux.org) helper that's very straight forward:
 
 ```bash

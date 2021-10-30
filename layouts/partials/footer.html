@@ -6,7 +6,11 @@
             {{ end}}
             <ul>
             {{ range site.Menus.footer_left }}
-                <li><a href="{{ .URL }}">{{.Name}}</a></li>
+                <li>
+                    <a href="{{ .URL }}">
+                        {{.Name}}
+                    </a>
+                </li>
             {{ end }}
             </ul>
         </nav>
@@ -17,7 +21,11 @@
             {{ end}}
             <ul>
             {{ range site.Menus.footer_middle }}
-                <li><a href="{{ .URL }}">{{.Name}}</a></li>
+                <li>
+                    <a href="{{ .URL }}">
+                        {{.Name}}
+                    </a>
+                </li>
             {{ end }}
             </ul>
         </nav>
@@ -28,7 +36,13 @@
             {{ end}}
             <ul>
             {{ range site.Menus.footer_right }}
-                <li><a href="{{ .URL }}">{{.Name}}</a></li>
+                <li>
+                    <a href="{{ .URL }}">
+                        {{ if .Params.image }}<img class="{{ if .Params.image_dark }}block dark:hidden{{end}} {{ .Params.image_classes | default "" }}" src="{{ .Params.image }}">{{ end }}
+                        {{ if .Params.image_dark }}<img class="hidden dark:block  {{ .Params.image_classes | default "" }}" src="{{ .Params.image_dark }}">{{ end }}
+                        {{.Name}}
+                    </a>
+                </li>
             {{ end }}
             </ul>
         </nav>

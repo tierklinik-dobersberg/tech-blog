@@ -3,6 +3,7 @@ title: "About the Author"
 date: 2021-10-28T10:41:11+02:00
 draft: false
 hide_header: true
+hide_toc: true
 menu:
     footer_left:
 ---

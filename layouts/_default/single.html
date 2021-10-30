@@ -1,6 +1,6 @@
 {{ define "main" }}
 <div class="container flex justify-center px-4 pt-4 mb-4 lg:mx-auto md:mb-8 lg:mb-12 md:pt-6 lg:pt-8">
-  <article class="prose dark:prose-light lg:prose-xl">
+  <article class="w-full overflow-visible prose sm:prose-sm dark:prose-light lg:prose-xl">
     {{ if .Params.hide_header }}{{else}}
     <h1>{{ .Title }}</h1>
     <div class="text-sm text-gray-500">
@@ -8,11 +8,17 @@
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
       </svg>
       {{ .ReadingTime }} min read
+
       <span class="pl-3 ml-3 border-l border-gray-300">
         Created {{ .Date.Format "Mon, Jan 2, 2006" }}
       </span>
     </div>
     {{end}}
+
+    {{ if .Params.hide_toc }}{{ else }}
+    {{ .TableOfContents }}
+    {{ end }}
+    
     {{ .Content }}
   </article>
 </div>
