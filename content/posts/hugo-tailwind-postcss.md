@@ -5,8 +5,10 @@ draft: true
 ---
 
 This post is going to describe how to setup a static site using Hugo, Tailwind
-and PostCSS. In addition, we will add the typography and form and aspect-ratio
+and PostCSS. In addition, we will add the typography, form and aspect-ratio
 plugins of Tailwind so your posts will look awesome right from the beginning.
+
+<!--more-->
 
 The setup described here is the same one use for this site and
 has been documented while creating it.

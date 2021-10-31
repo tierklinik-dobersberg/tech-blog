@@ -47,15 +47,19 @@ menu:
       image_dark: /images/github-mark-light.png
       image_classes: mb-4
   main:
-  - identifier: categories
-    name: Categories
-    url: /categories/
+#  - identifier: categories
+#    name: Categories
+#    url: /categories/
+#    weight: 1
+#  - identifier: nomad
+#    name: Nomad
+#    url: /categories/nomad/
+#    parent: categories
+#    weight: 0
+  - identifier: posts
+    name: Blog
+    url: /posts/
     weight: 1
-  - identifier: nomad
-    name: Nomad
-    url: /categories/nomad/
-    parent: categories
-    weight: 0
   - identifier: website
     name: Tierklinik Dobersberg
     params:

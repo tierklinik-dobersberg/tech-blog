@@ -1,9 +1,7 @@
-{{ define "main" }}
-<div class="container flex justify-center px-4 pt-4 mb-4 lg:mx-auto md:mb-8 lg:mb-12 md:pt-6 lg:pt-8">
-  <article class="w-full overflow-visible prose sm:prose-sm dark:prose-light lg:prose-xl">
-    {{ if .Params.hide_header }}{{else}}
-    <h1>{{ .Title }}</h1>
-    <div class="text-sm text-gray-500 dark:text-gray-400">
+<article class="post">
+  <header>
+    <h2><a href='{{ .Permalink }}'> {{ .Title }}</a> </h2>
+    <div class="flex flex-row">
       <span class="inline-flex items-center justify-center px-1 py-0.5 mr-3 text-xs text-gray-600 bg-gray-100 border border-gray-200 dark:bg-gray-600 dark:border-gray-700 dark:text-gray-300 rounded shadow-inner">
         <svg xmlns="http://www.w3.org/2000/svg" class="inline w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -18,15 +16,9 @@
         {{ .Date.Format "Mon, Jan 2, 2006" }}
       </span>
     </div>
-    {{end}}
-
-    {{ if .Params.hide_toc }}{{ else }}
-    <div class="md:text-base">
-    {{ .TableOfContents }}
-    </div>
-    {{ end }}
-    
-    {{ .Content }}
-  </article>
-</div>
-{{ end }}
+  </header>
+  {{ .Summary }}
+  <footer>
+  <a href='{{ .Permalink }}'><nobr>Read more →</nobr></a>
+  </footer>
+</article>
