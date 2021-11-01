@@ -1,21 +1,7 @@
 <article class="post">
   <header>
     <h2><a href='{{ .Permalink }}'> {{ .Title }}</a> </h2>
-    <div class="flex flex-row">
-      <span class="inline-flex items-center justify-center px-1 py-0.5 mr-3 text-xs text-gray-600 bg-gray-100 border border-gray-200 dark:bg-gray-600 dark:border-gray-700 dark:text-gray-300 rounded shadow-inner">
-        <svg xmlns="http://www.w3.org/2000/svg" class="inline w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
-        {{ .ReadingTime }} min read
-      </span>
-
-      <span class="inline-flex items-center justify-center px-1 py-0.5 mr-3 text-xs text-gray-600 bg-gray-100 border border-gray-200 rounded shadow-inner dark:bg-gray-600 dark:border-gray-700 dark:text-gray-300">
-        <svg xmlns="http://www.w3.org/2000/svg" class="inline w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-        </svg>
-        {{ .Date.Format "Mon, Jan 2, 2006" }}
-      </span>
-    </div>
+    {{ partial "post-meta.html" . }}
   </header>
   {{ .Summary }}
   <footer>

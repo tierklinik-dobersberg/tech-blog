@@ -1,0 +1,15 @@
+{{ define "main" }}
+<div class="container flex justify-center px-4 pt-4 mb-4 lg:mx-auto md:mb-8 lg:mb-12 md:pt-6 lg:pt-8">
+    <div class="w-full prose dark:prose-light sm:prose-sm lg:prose-lg">
+        <h1><span class="font-medium">Posts for</span> #{{ .Title }}</h1>
+
+        {{ if .Params.description }}
+        <p class="font-medium text-gray-700 dark:text-gray-200">{{ .Params.description }}</p>
+        {{ end }}
+
+        {{ range .Pages.ByParam "date" }}
+            {{ .Render "summary" }}    
+        {{ end }}
+    </div>
+</div>
+{{ end }}

@@ -2,6 +2,7 @@
 title: "Setting up a static site using Hugo, Tailwind and PostCSS"
 date: 2021-10-28T20:59:47+02:00
 draft: true
+tags: [hugo, tailwind]
 ---
 
 This post is going to describe how to setup a static site using Hugo, Tailwind

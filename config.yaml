@@ -23,6 +23,9 @@ menu:
     - identifier: home
       name: Home
       url: /
+    - identifier: tags
+      name: Tags
+      url: /tags/
   footer_middle:
     - identifier: privacy-statement
       name: Privacy Statement
