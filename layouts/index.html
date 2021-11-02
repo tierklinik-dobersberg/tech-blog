@@ -24,31 +24,16 @@
 {{/* End of banner */}}
 
 <div class="container p-6 mx-auto md:p-10 lg:p-14">
-  {{/* Start of recent posts */}}
     <div class="mb-4 md:mb-6 lg:mb-8">
       <h2 class="text-2xl font-semibold text-gray-800 dark:text-gray-100">Recent Posts:</h2>
-      <span class="block -mt-1 text-gray-400 text-normal dark:text-gray-200">Here's a list of new stuff</span>
+      <span class="block -mt-1 text-gray-400 text-normal dark:text-gray-200">
+        Here's a list of new stuff. You can also check out <a href="/posts/" class="underline">all posts</a> or dig through the <a href="/tags/" class="underline">tags</a>.
+      </span>
     </div>
-    <ul class="flex flex-col flex-wrap sm:flex-row">
+    <div class="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
     {{ range (where .Site.RegularPages "Type" "posts") }}
-      <li>
-        <a href="{{ .Permalink }}" class="flex flex-col flex-1 p-4 bg-white border border-gray-100 rounded shadow cursor-pointer dark:border-gray-600 md:p-6 lg:p-8 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-500">
-          <span class="text-xl font-medium text-gray-600 dark:text-gray-100">{{ .Title }}</span>
-          <span class="flex flex-row justify-between text-sm font-thin text-gray-400 dark:text-gray-200">
-            <span>{{ .Date.Format "Mon, Jan 2, 2006" }}</span>
-            <span>
-              <svg xmlns="http://www.w3.org/2000/svg" class="inline w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              {{ .ReadingTime }} min read
-            </span>
-          </span>
-        </a>
-      </li>
+        {{ partial "recent-post.html" . }}
     {{ end }}
-    </ul>
-  {{/* End of recent posts */}}
+    </div>
 </div>
-
-
 {{ end }}

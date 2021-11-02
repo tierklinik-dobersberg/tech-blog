@@ -9,7 +9,7 @@ menu:
   footer_left:
 ---
 
-Welcome to the Tech & IT Blog of the [Veterinary Clinic Dobersberg](//tierklinikdobersberg.at). This blog is created and maintained by [Patrick Pacher](/about-author/) as a part of managing, developing and improving the IT and software landscape deployed at our clinic. The main purpose of this blog is to have references and documentation for myself as well as anyone curios about [certain technology](TODO:categories). 
+Welcome to the Tech & IT Blog of the [Veterinary Clinic Dobersberg](//tierklinikdobersberg.at). This blog is created and maintained by [Patrick Pacher](/about-author/) as a part of managing, developing and improving the IT and software landscape deployed at our clinic. The main purpose of this blog is to have references and documentation for myself as well as anyone curios about [certain technology](/tags/). 
 
 ## Imprint
 

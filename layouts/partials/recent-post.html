@@ -1,0 +1,13 @@
+<a href="{{ .Permalink }}" class="flex flex-col flex-1 h-full p-4 bg-white border border-gray-100 rounded shadow cursor-pointer dark:border-gray-600 md:p-6 lg:p-8 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-500">
+    <span class="text-xl font-medium text-gray-600 dark:text-gray-100">{{ .Title }}</span>
+    <span class="flex-grow"></span>
+    <span class="flex flex-row justify-between text-sm font-thin text-gray-400 dark:text-gray-200">
+        <span>{{ .Date.Format "Mon, Jan 2, 2006" }}</span>
+        <span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="inline w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            {{ .ReadingTime }} min read
+        </span>
+    </span>
+</a>
