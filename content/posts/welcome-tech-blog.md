@@ -1,7 +1,7 @@
 ---
 title: "Announcing Tech & IT Blog"
 date: 2021-10-28T20:59:47+02:00
-draft: true
+draft: false
 ---
 
 Welcome to `tech.dobersberg.vet`, the new Tech & IT blog of the [veterinary clinic in Dobersberg, Lower Austria](//tierklinikdobersberg.at).
