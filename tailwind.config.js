@@ -12,6 +12,13 @@ module.exports = {
 	darkMode: 'media',
 	theme: {
 		extend: {
+			backgroundColor: {
+				'gray-50': 'rgb(247 249 248)',
+			},
+			fontFamily: {
+				'header': 'Open Sans',
+				'default': 'Lato'
+			},
 			screens: {
 				'dark-mode': { 'raw': '(prefers-color-scheme: dark)' },
 			},

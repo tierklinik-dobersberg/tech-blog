@@ -60,7 +60,7 @@ Traefik ingress deployment. It automatically monitors services announced via Nom
 Without much words, here's the initial jobspec that we will start with:
 
 ```hcl
-job {
+job "remark42" {
     datacenters = ["dc1"]
     type        = "service"
 
@@ -185,7 +185,7 @@ and persistent information in a host volume called `shared-data` and that we wan
 The next block in our jobspec describes a `service` but for that we need to talk about [Consul](//consul.io) first.
 
 Consul is, like Nomad and Vault, a product of Hashicorp. It provides a generic Key-Value store, Service Discovery using DNS-SD including
-health monitoring and more. If you have a Nomad cluster at hand chances are good you already have Consul integration set-up.
+health monitoring and much more. If you have a Nomad cluster at hand chances are good you already have Consul integration set-up.
 
 So let's talk about the following block:
 
@@ -218,7 +218,71 @@ running that monitors services in Consul and auto-configures HTTPS routes for th
 Finally, since Consul needs to check if the service is actually healthy we define a simple health check that sends a TCP probe to the `http` port every 10s. If the service becomes unhealthy Consul will no longer advertise it and Traefik will automatically revoke the ingress route. If we would have more than one instance of Remark running than Traefik would exlcude the unhealthy service from receiving
 any traffic. 
 
+```hcl
+task "server" {
+    driver = "docker"
+
+    config {
+        image = "umputun/remark42:latest"
+    }
+
+    volume_mount {
+        volume = "db"
+        destination = "/data"
+    }
+
+    env {
+        REMARK_URL = "https://remark42.dobersberg.vet/"
+        STORE_BOLT_PATH = "/data/remark42/db"
+        BACKUP_PATH = "/data/remark42/backup"
+    }
+
+    template {
+        destination = "secrets/env"
+        env = true
+        data = <<EOF
+SECRET="some-random-secret"
+EOF
+    }
+}
+```
+
+This block already describes the actual task that runs the Remark42 server. In our case, there's a docker container image (`umputu/remark42`) available so we are going to use this image using Nomad's docker driver. We also tell our cluster that we want the volume named `db` (see above)
+to be mounted at `/data` inside the container. Next, we define a set of environment variables that are required for Remark to run. Those are taken from the example [docker-compose.yml](https://github.com/umputun/remark42/blob/master/docker-compose.yml) file. The `template` block at the end has the same effect as the `env` block but writes the environment variables to a file under `secrets/env` first. We use a `template` block for `SECRET` instead because we want to integrate with [Vault](//vaultproject.io) later.
+
+In theory, that's all we need for our Remark42 job. Make sure the folders `remark42/db` and `remark42/backup` actually exist in your host-volume and you're ready to `nomad job run ./remark42.hcl`.
+
 ### Initialize Storage
+
+If you are a bit like me you will also like to avoid manual work as much as possible. I'd like to be able to deploy a copy of my cluster and all
+services in a matter of minutes. Since I will likely always forget about manual work-steps I need to ensure the directories `remark42/db` and `remark42/backup` are automatically created on the host-volume whenever I want to create the remark job.
+
+Thankfully Nomad can have multiple tasks per group and also has a concept of life-cycle hooks. The following `task` block creates a small "prestart" task that is run before the actual `remark42` server and just makes sure the directories are set-up. For that, we will use the very small
+`busybox` docker-container. It would also be possible to use Nomad's `exec` driver but on our cluster all other drivers except `docker` are disabled.
+
+```hcl
+task "prepare" {
+    lifecycle {
+        hook = "prestart"
+    }
+
+    driver = "docker"
+
+    config {
+        image = "busybox"
+        args = [
+            "mkdir", "-p",
+                "/data/remark42/db",
+                "/data/remark42/backup"
+        ]
+    }
+
+    volume_mount {
+        volume = "db"
+        destination = "/data"
+    }
+}
+```
 ## Authentication
 
 ### E-Mail Login

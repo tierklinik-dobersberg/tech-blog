@@ -1,13 +1,13 @@
 ---
 title: "Setting up a static site using Hugo, Tailwind and PostCSS"
 date: 2021-11-01T09:47:03+01:00
-draft: true
+draft: false
 tags: [hugo, tailwind]
 ---
 
 This post is going to describe how to setup a static site using Hugo, Tailwind
-and PostCSS. In addition, we will add the typography, form and aspect-ratio
-plugins of Tailwind so your posts will look awesome right from the beginning.
+and PostCSS. In addition, we will add the typography plugin of Tailwind so your
+posts will look awesome right from the beginning.
 
 <!--more-->
 
@@ -144,14 +144,15 @@ npm init .
 Next, let's install all of our dependencies. That is, PostCSS itself as well as the plugins and Tailwind:
 
 ```bash
-npm install --save-dev   \
-  postcss               \ # This is the PostCSS processor itself
-  postcss-cli           \ # A cli tool to invoke the processor
-  postcss-import        \ # Adds support for @import statements
-  postcss-nested        \ # Adds support for nested declarations 
-  postcss-purgecss      \ # Required for Tailwind's purge feature
-  autoprefixer          \ # Automatically add vendor prefixes
-  tailwindcss           \ # This is TailwindCSS itself
+npm install --save-dev    \
+  postcss                 \ # This is the PostCSS processor itself
+  postcss-cli             \ # A cli tool to invoke the processor
+  postcss-import          \ # Adds support for @import statements
+  postcss-nested          \ # Adds support for nested declarations 
+  postcss-purgecss        \ # Required for Tailwind's purge feature
+  autoprefixer            \ # Automatically add vendor prefixes
+  tailwindcss             \ # This is TailwindCSS itself
+  @tailwindcss/typography \ # The Typography plugin for tailwind
 ```
 
 NPM will update the `package.json` file with those dependencies and install them into the `node_modules/`
@@ -217,7 +218,10 @@ module.exports = {
 		mode: 'all',
 
 	},
-	plugins: []
+	plugins: [
+    // Add other tailwind plugins here as you like
+    require('@tailwindcss/typography');
+  ]
 };
 ```
 
@@ -330,3 +334,8 @@ Finally, create the file `layouts/_default/single.html` that will be used to ren
 {{ end }}
 ```
 
+The `prose` class comes from Tailwind's [Typography](//github.com/tailwindlabs/tailwindcss-typography) plugin and ensures your markdown content is rendered
+in a beautiful fashion. 
+
+That's all for now. I hope this post will be useful to others. Feel free to drop a comment below!
+ 

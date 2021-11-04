@@ -1,13 +1,28 @@
 {{ define "main" }}
-<div class="container flex justify-center px-4 pt-4 mb-4 lg:mx-auto md:mb-8 lg:mb-12 md:pt-6 lg:pt-8">
-  <article class="overflow-visible w-full prose sm:prose-sm dark:prose-light lg:prose-xl">
-    {{ if .Params.hide_header }}{{else}}
-    <header>
-      <h1>{{ .Title }}</h1>
-      {{ partial "post-meta.html" . }}
-    </header>
-    {{ end }}
+{{ if .Params.hide_header }}{{else}}
+    <div class="relative z-20 px-4 pt-4 mx-auto bg-gray-50 dark:bg-gray-900 md:pt-6">
+        <header class="mx-auto overflow-visible prose sm:prose-sm dark:prose-light lg:prose-xl">
+          <h1>{{ .Title }}</h1>
+        </header>
+    </div>
 
+    <div class="z-10 sm:sticky bg-gray-50 dark:bg-gray-900" style="top: 65px" id="sticky-head">
+      <div class="container relative z-10 pt-4 mx-auto prose sm:prose-sm dark:prose-light lg:prose-xl md:pt-6">
+        <div id="post-meta" class="pb-4 transition duration-200 ease-in-out sm:pb-0">
+            {{ partial "post-meta.html" . }}
+        </div>
+        <div id="post-title" aria-hidden="true" class="absolute w-full text-sm font-semibold text-center transition duration-200 ease-in-out opacity-0 font-header">
+          {{ .Title }}
+        </div>
+      </div>
+      <div class="hidden sm:block sm:-mt-6">
+        {{ partial "separator-top.html" (dict "bottom" "dark:bg-gray-900 bg-white" "top" "bg-transparent" ) }}
+      </div>
+    </div>
+{{ end }}
+
+<div class="container px-4 pt-4 mx-auto mb-4 md:mb-8 lg:mb-12">
+  <article class="w-full mx-auto overflow-visible prose sm:prose-sm dark:prose-light lg:prose-xl">
     {{ if .Params.hide_toc }}{{ else }}
     <div class="md:text-base">
     {{ .TableOfContents }}
@@ -16,5 +31,68 @@
     
     {{ .Content }}
   </article>
+
 </div>
+
+{{ partial "separator-bottom.html" (dict "bottom" "dark:bg-gray-900 bg-white" "top" "bg-transparent" ) }}
+<div class="mx-auto mt-4 prose comments">
+  <div id="remark42"></div>
+</div>
+
+<style type="text/css">
+#sticky-head[stuck] #post-meta {
+  opacity: 0;
+  transform: translateY(-1.0rem);
+  transition-delay: 0ms;
+}
+#sticky-head[stuck] #post-title {
+  opacity: 1;
+  transform: translateY(0rem);
+  transition-delay: 200ms;
+}
+#post-meta {
+  transition-delay: 200ms;
+}
+#post-title {
+  top: 1.55rem;
+  transform: translateY(-1rem);
+  transition-delay: 0ms;
+}
+</style>
+<script type="text/javascript">
+const observer = new IntersectionObserver( 
+  ([e]) => {
+    e.target.toggleAttribute('stuck', e.intersectionRatio < 1);
+  },
+  {
+    threshold: [1],
+    rootMargin:'-80px 0px 100px 0px'
+  }
+);
+
+const el = document.querySelector('#sticky-head');
+if (!!el) {
+  observer.observe(el);
+}
+</script>
+
+<script>
+  const darkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  var remark_config = {
+    host: 'https://remark42.dobersberg.vet',
+    site_id: 'tech.dobersberg.vet',
+    components: ['embed'],
+    theme: darkMode ? 'dark' : 'light', 
+    locale: 'en', 
+    show_email_subscription: true,
+    simple_view: false,
+  };
+</script>
+<script type="text/javascript">
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+    const newColorScheme = e.matches ? "dark" : "light";
+    window.REMARK42 && window.REMARK42.changeTheme(newColorScheme);
+  });
+</script>
+<script>!function(e,n){for(var o=0;o<e.length;o++){var r=n.createElement("script"),c=".js",d=n.head||n.body;"noModule"in r?(r.type="module",c=".mjs"):r.async=!0,r.defer=!0,r.src=remark_config.host+"/web/"+e[o]+c,d.appendChild(r)}}(remark_config.components||["embed"],document);</script>
 {{ end }}
