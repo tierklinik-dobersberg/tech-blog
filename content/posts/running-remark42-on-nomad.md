@@ -50,13 +50,173 @@ Since Remark42 stores all comments in a local [BoltDB](https://github.com/etcd-i
 of persistent storage to the job - that's called a [stateful workload](https://learn.hashicorp.com/collections/nomad/stateful-workloads).
 
 In our Nomad cluster almost all cluster members participate in a distributed and replicated [GlusterFS](https://www.gluster.org/) volume.
-This volume is mounted on each cluster member and made available to Nomad as a [host volume](https://www.nomadproject.io/docs/configuration/client#host_volume-stanza) at `/data/shared/`. We will use this volume for our Remark42 deployment and Nomad will automatically figure out which cluster members are eligible for this job.
+This volume is mounted on each cluster member and made available to Nomad as a [host volume](https://www.nomadproject.io/docs/configuration/client#host_volume-stanza) using the name `shared-data`. We will use this volume for our Remark42 deployment and Nomad will automatically figure out which cluster members are eligible for this job.
 
 In addition, Remark42 exposes a HTTP API that we want to serve **securely** on `remark42.dobersberg.vet`. That's the job of our
 Traefik ingress deployment. It automatically monitors services announced via Nomad and [Consul](//consul.io) and configures/requests SSL certificates from Let's Encrypt depending on a service' labels. However, digging into this is something for another post.
 
 ### The Remark42 Jobspec
 
+Without much words, here's the initial jobspec that we will start with:
+
+```hcl
+job {
+    datacenters = ["dc1"]
+    type        = "service"
+
+    group "remark" {
+        volume "db" {
+            type      = "host"
+            source    = "shared-data"
+            read_only = false
+        }
+
+        network {
+            port "http" {
+                to = 8080
+            }
+        }
+
+        service {
+            name = "remark42"
+            port = "http"
+            tags = [
+                "traefik.enable=true",
+                "traefik.http.routers.remark42.entrypoints=https",
+                "traefik.http.routers.remark42.rule=Host(`remark42.dobersberg.vet`)",
+                "traefik.http.routers.remark42.tls=true",
+                "traefik.http.routers.remark42.tls.certResolver=letsencrypt"
+            ]
+            check {
+                name     = "alive"
+                type     = "tcp"
+                port     = "http"
+                interval = "10s"
+                timeout  = "2s"
+            }
+        }
+
+        task "server" {
+            driver = "docker"
+
+            config {
+                image = "umputun/remark42:latest"
+            }
+
+            volume_mount {
+                volume = "db"
+                destination = "/srv/data"
+            }
+
+            env {
+                REMARK_URL = "https://remark42.dobersberg.vet/"
+                STORE_BOLT_PATH = "/srv/data/remark42/db"
+                BACKUP_PATH = "/srv/data/remark42/backup"
+            }
+
+            template {
+                destination = "secrets/env"
+                env = true
+                data = <<EOF
+SECRET="some-random-secret"
+EOF
+            }
+        }
+    }
+}
+```
+
+That's a lot so let's discuss and explain the jobspec section by section.
+
+```hcl
+    datacenters = ["dc1"]
+    type        = "service"
+```
+
+Those configuration stanzas just tell nomad that this job is meant to be executed in our Datacenter "dc1".
+That's the name of the default datacenter of a nomad cluster unless you configured it otherwise. It also
+informs Nomad that we want to run our Remark job as a service. That means that nomad will schedule the configured
+amount (here just one) of job instances accross eligible nodes in the cluster. There are other job types
+like system and batch. For more information on them please refer to the [Scheduler Documentation](https://www.nomadproject.io/docs/schedulers).
+
+```hcl
+group "remark" {
+    # ...
+}
+```
+
+A Nomad job can have multiple groups with each group being composed of one or more tasks and services. For this post
+we just need a single group. 
+
+```hcl
+volume "db" {
+    type      = "host"
+    source    = "shared-data"
+    read_only = false
+}
+```
+
+This block tells Nomad that our job group needs a volume that we call `db` in the jobspec. That name is only for
+references to the volume in other configuration blocks and directives of that file. It also tells Nomad that we
+want to use the [host-volume (`type = "host"`)](https://www.nomadproject.io/docs/configuration/client#host_volume-stanza) named
+`shared-data`. 
+
+Since host volumes are configured on a Nomad client basis, all Nomad servers automatically know which cluster clients are
+eligible to run the Remark job. 
+
+
+```hcl
+network {
+    port "http" {
+        to = 8080
+    }
+}
+```
+
+Next up, we tell Nomad that we want to have a TCP/UDP port on the cluster client that is forwarded to port `8080`. The `network` stanza itself does not tell Nomad how or where to forward traffic to. That's up to the workload/task driver (in our case `docker`, see below). Using this configuration block, Nomad will pick a random high port and tell the task driver that it should forward that port to `8080`.
+Like with volumes, Nomad supports working with named ports. In our case, we named the port definition `http`. The rest of the jobspec
+file will just refer to that port using it's name. Note that while the name does not need to specify what the port is used for, it's common practice to name to port after it's purpose.
+
+You can find more information about the network stanza [here](https://www.nomadproject.io/docs/job-specification/network).
+
+At this point we told nomad about the job type and accross which datacenters it should be spread. We also decided to store any state
+and persistent information in a host volume called `shared-data` and that we want to have a network port named `http` forwarded to port 8080.
+
+The next block in our jobspec describes a `service` but for that we need to talk about [Consul](//consul.io) first.
+
+Consul is, like Nomad and Vault, a product of Hashicorp. It provides a generic Key-Value store, Service Discovery using DNS-SD including
+health monitoring and more. If you have a Nomad cluster at hand chances are good you already have Consul integration set-up.
+
+So let's talk about the following block:
+
+```hcl
+service {
+    name = "remark42"
+    port = "http"
+    tags = [
+        "traefik.enable=true",
+        "traefik.http.routers.remark42.entrypoints=https",
+        "traefik.http.routers.remark42.rule=Host(`remark42.dobersberg.vet`)",
+        "traefik.http.routers.remark42.tls=true",
+        "traefik.http.routers.remark42.tls.certResolver=letsencrypt"
+    ]
+    check {
+        name     = "alive"
+        type     = "tcp"
+        port     = "http"
+        interval = "10s"
+        timeout  = "2s"
+    }
+}
+```
+
+When integrated with Consul, the service block creates a new entry in Consul that is made available using service discovery.
+In our case the name of the service `remark42` and using `port="http"` Nomad can also tell Consul which random high-port it chose for
+the service. Next we define a set of tags. Those tags are stored along the service in Consul. In our case we have a Traefik ingress job
+running that monitors services in Consul and auto-configures HTTPS routes for them. More about that in another post.
+
+Finally, since Consul needs to check if the service is actually healthy we define a simple health check that sends a TCP probe to the `http` port every 10s. If the service becomes unhealthy Consul will no longer advertise it and Traefik will automatically revoke the ingress route. If we would have more than one instance of Remark running than Traefik would exlcude the unhealthy service from receiving
+any traffic. 
 
 ### Initialize Storage
 ## Authentication
