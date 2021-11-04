@@ -1,6 +1,6 @@
 ---
 title: "Announcing Tech & IT Blog"
-date: 2021-11-01T09:47:03+01:00
+date: 2021-10-28T20:59:47+02:00
 draft: true
 ---
 

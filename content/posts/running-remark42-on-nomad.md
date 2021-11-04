@@ -7,7 +7,7 @@ tags: [nomad, vault, hugo]
 
 In this post we'll show you how to run the privacy focused [Remark42](https://remark42.com/) commenting engine on a
 Hashicorp Nomad cluster and integrate it into a static website built by [Hugo](/tags/hugo/). We'll enable email and
-social logins using Github and manage those credentials using Vault. The setup described here is similar to the
+social logins using Github and manage those credentials using Vault. During that, we'll discuss the Nomad job file in detail. The setup described here is similar to the
 setup used for this website.
 
 <!--more-->

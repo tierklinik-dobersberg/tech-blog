@@ -1,6 +1,6 @@
 ---
 title: "Setting up a static site using Hugo, Tailwind and PostCSS"
-date: 2021-10-28T20:59:47+02:00
+date: 2021-11-01T09:47:03+01:00
 draft: true
 tags: [hugo, tailwind]
 ---
