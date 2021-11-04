@@ -1,12 +1,12 @@
 {{ define "main" }}
 {{ if .Params.hide_header }}{{else}}
     <div class="relative z-20 px-4 pt-4 mx-auto bg-gray-50 dark:bg-gray-900 md:pt-6">
-        <header class="mx-auto overflow-visible prose sm:prose-sm dark:prose-light lg:prose-xl">
+        <header class="py-1 mx-auto overflow-visible prose sm:prose-sm dark:prose-light lg:prose-xl lg:py-8 md:py-4 sm:py-2">
           <h1>{{ .Title }}</h1>
         </header>
     </div>
 
-    <div class="z-10 sm:sticky bg-gray-50 dark:bg-gray-900" style="top: 65px" id="sticky-head">
+    <div class="z-10 transition duration-200 ease-in-out sm:sticky bg-gray-50 dark:bg-gray-900" style="top: 65px" id="sticky-head">
       <div class="container relative z-10 pt-4 mx-auto prose sm:prose-sm dark:prose-light lg:prose-xl md:pt-6">
         <div id="post-meta" class="pb-4 transition duration-200 ease-in-out sm:pb-0">
             {{ partial "post-meta.html" . }}
@@ -34,16 +34,23 @@
 
 </div>
 
+{{ if .Params.allow_comments }}
 <div class="-mb-6">
-  {{ partial "separator-bottom.html" (dict "bottom" "dark:bg-remark bg-white" "top" "bg-transparent" ) }}
+  {{ partial "separator-bottom.html" (dict "bottom" "dark:bg-remark-dark bg-remark-light" "top" "bg-transparent" ) }}
 </div>
-<div class="bg-white dark:bg-remark">
+<div class="bg-white dark:bg-remark-dark bg-remark-light">
   <div class="mx-auto mt-4 prose comments ">
     <div id="remark42"></div>
   </div>
 </div>
+{{ end }}
 
 <style type="text/css">
+@media (prefers-color-scheme: dark) {
+  #sticky-head[stuck] {
+    background-color: rgba(31, 41, 55, var(--tw-bg-opacity));
+  }
+}
 #sticky-head[stuck] #post-meta {
   opacity: 0;
   transform: translateY(-1.0rem);
@@ -80,23 +87,25 @@ if (!!el) {
 }
 </script>
 
-<script>
-  const darkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-  var remark_config = {
-    host: 'https://remark42.dobersberg.vet',
-    site_id: 'tech.dobersberg.vet',
-    components: ['embed'],
-    theme: darkMode ? 'dark' : 'light', 
-    locale: 'en', 
-    show_email_subscription: true,
-    simple_view: false,
-  };
-</script>
-<script type="text/javascript">
-  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-    const newColorScheme = e.matches ? "dark" : "light";
-    window.REMARK42 && window.REMARK42.changeTheme(newColorScheme);
-  });
-</script>
-<script>!function(e,n){for(var o=0;o<e.length;o++){var r=n.createElement("script"),c=".js",d=n.head||n.body;"noModule"in r?(r.type="module",c=".mjs"):r.async=!0,r.defer=!0,r.src=remark_config.host+"/web/"+e[o]+c,d.appendChild(r)}}(remark_config.components||["embed"],document);</script>
+{{ if .Params.allow_comments }}
+  <script>
+    const darkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    var remark_config = {
+      host: 'https://remark42.dobersberg.vet',
+      site_id: 'tech.dobersberg.vet',
+      components: ['embed'],
+      theme: darkMode ? 'dark' : 'light', 
+      locale: 'en', 
+      show_email_subscription: true,
+      simple_view: false,
+    };
+  </script>
+  <script type="text/javascript">
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+      const newColorScheme = e.matches ? "dark" : "light";
+      window.REMARK42 && window.REMARK42.changeTheme(newColorScheme);
+    });
+  </script>
+  <script>!function(e,n){for(var o=0;o<e.length;o++){var r=n.createElement("script"),c=".js",d=n.head||n.body;"noModule"in r?(r.type="module",c=".mjs"):r.async=!0,r.defer=!0,r.src=remark_config.host+"/web/"+e[o]+c,d.appendChild(r)}}(remark_config.components||["embed"],document);</script>
+{{ end }}
 {{ end }}

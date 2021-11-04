@@ -2,7 +2,8 @@
 title: "Privacy focused Remark42 commenting engine on Nomad"
 date: 2021-11-02T15:53:17+01:00
 draft: true
-tags: [nomad, vault, hugo]
+allow_comments: yes
+tags: [nomad, vault, hugo, linux]
 ---
 
 In this post we'll show you how to run the privacy focused [Remark42](https://remark42.com/) commenting engine on a

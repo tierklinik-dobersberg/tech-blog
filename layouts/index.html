@@ -31,7 +31,7 @@
 <div class="py-8">
   <section class="container p-6 mx-auto md:p-10 lg:p-14">
     <div class="mb-4 md:mb-6 lg:mb-8">
-      <h2 class="text-2xl font-semibold text-gray-800 dark:text-gray-100">Check our recent posts:</h2>
+      <h2 class="text-2xl font-semibold text-gray-800 dark:text-gray-100">Recent Posts</h2>
       <span class="block -mt-1 text-gray-400 text-normal dark:text-gray-200">
         Here's a list of new stuff. You can also check out <a href="/posts/" class="underline">all posts</a>.
       </span>
@@ -53,14 +53,14 @@
 <div class="py-8">
   <section class="container p-6 mx-auto md:p-10 lg:p-14">
     <div class="mb-4 md:mb-6 lg:mb-8">
-      <h2 class="text-2xl font-semibold text-gray-800 dark:text-gray-100">Or dig through our tags:</h2>
+      <h2 class="text-2xl font-semibold text-gray-800 dark:text-gray-100">Popular Tags</h2>
       <span class="block -mt-1 text-gray-400 text-normal dark:text-gray-200">
         Those are the most populare ones. You can also checkout <a href="/tags/" class="underline">all tags</a>.
       </span>
     </div>
     <div class="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
       {{ range (first 3 .Site.Taxonomies.tags.ByCount) }}
-        <a href="/tags/{{ .Name | urlize }}" class="flex flex-col flex-1 h-full p-4 bg-white border border-gray-100 rounded-sm shadow-sm cursor-pointer dark:border-gray-600 md:p-6 lg:p-8 dark:bg-transparent hover:bg-gray-100 dark:hover:bg-gray-800">
+        <a href="/tags/{{ .Name | urlize }}" class="flex flex-col flex-1 h-full p-4 bg-white border border-gray-300 rounded-sm shadow-sm cursor-pointer dark:border-gray-600 md:p-6 lg:p-8 dark:bg-transparent hover:bg-gray-100 dark:hover:bg-gray-800">
           <span class="text-xl font-medium text-gray-600 dark:text-gray-100">#{{ .Name }}</span>
           <span class="flex-grow"></span>
           <span class="flex flex-col text-sm font-thin text-gray-400 dark:text-gray-200">

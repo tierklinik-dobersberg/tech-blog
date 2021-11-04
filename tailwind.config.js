@@ -14,7 +14,8 @@ module.exports = {
 		extend: {
 			backgroundColor: {
 				'gray-50': 'rgb(247 249 248)',
-				'remark': '#333',
+				'remark-dark': '#333',
+				'remark-light': '#eee',
 			},
 			fontFamily: {
 				'header': 'Open Sans',

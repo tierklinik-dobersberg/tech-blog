@@ -2,7 +2,8 @@
 title: "Setting up a static site using Hugo, Tailwind and PostCSS"
 date: 2021-11-01T09:47:03+01:00
 draft: false
-tags: [hugo, tailwind]
+allow_comments: yes
+tags: [hugo, tailwind, linux]
 ---
 
 This post is going to describe how to setup a static site using Hugo, Tailwind
@@ -130,7 +131,7 @@ utilities and the `@apply` rule as well.
 ### Installing dependencies
 
 For Tailwind and PostCSS you need `nodejs` and `npm` installed. On Linux there should be some matching
-packages in your distributions package repositories. For Archlinux a simple `pacman -S nodejs npm` is
+packages in your distribution's package repositories. For Archlinux a simple `pacman -S nodejs npm` is
 enough.
 
 Hugo expected PostCSS and all plugins to be installed locally. To avoid installing them globaly on your
