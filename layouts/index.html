@@ -23,9 +23,13 @@
   {{ end }}
 {{/* End of banner */}}
 
-<div class="container mx-auto">
-  <!-- Recent Posts -->
-  <section class="p-6 md:p-10 lg:p-14">
+<div class="-mt-8">
+  {{ partial "separator-top.html" (dict "bottom" "bg-white" "top" "bg-transparent" "border" "border-gray-200") }}
+</div>
+
+<!-- Recent Posts -->
+<div class="py-8">
+  <section class="container p-6 mx-auto md:p-10 lg:p-14">
     <div class="mb-4 md:mb-6 lg:mb-8">
       <h2 class="text-2xl font-semibold text-gray-800 dark:text-gray-100">Check our recent posts:</h2>
       <span class="block -mt-1 text-gray-400 text-normal dark:text-gray-200">
@@ -38,10 +42,16 @@
     {{ end }}
     </div>
   </section>
-  <!-- End Recent Posts -->
+</div>
+<!-- End Recent Posts -->
 
-  <!-- Dig through tags -->
-  <section class="p-6 md:p-10 lg:p-14">
+<div class="-mb-8">
+  {{ partial "separator-bottom.html" (dict "bottom" "bg-transparent" "top" "bg-white" "border" "border-gray-300") }}
+</div>
+
+<!-- Dig through tags -->
+<div class="py-8">
+  <section class="container p-6 mx-auto md:p-10 lg:p-14">
     <div class="mb-4 md:mb-6 lg:mb-8">
       <h2 class="text-2xl font-semibold text-gray-800 dark:text-gray-100">Or dig through our tags:</h2>
       <span class="block -mt-1 text-gray-400 text-normal dark:text-gray-200">
@@ -60,6 +70,11 @@
       {{ end }}
     </div>
   </section>
-  <!-- End Dig through tags -->
 </div>
+
+<div class="-mt-8">
+{{ partial "separator-top.html" (dict "bottom" "bg-gray-100" "top" "bg-transparent" "border" "border-gray-200") }}
+</div>
+
+<!-- End Dig through tags -->
 {{ end }}
