@@ -21,7 +21,7 @@
     </div>
 {{ end }}
 
-<div class="container px-2 pt-4 mx-auto mb-4 sm:px-4 md:mb-8 lg:mb-12">
+<div class="container px-2 py-4 mx-auto mb-4 sm:px-4 md:mb-8 lg:mb-12">
   <article class="w-full mx-auto overflow-visible prose sm:prose-sm dark:prose-light lg:prose-xl">
     {{ if .Params.hide_toc }}{{ else }}
     <div class="md:text-base">
@@ -38,8 +38,8 @@
 <div class="-mb-6">
   {{ partial "separator-bottom.html" (dict "bottom" "dark:bg-remark-dark bg-remark-light" "top" "bg-transparent" ) }}
 </div>
-<div class="bg-white dark:bg-remark-dark bg-remark-light">
-  <div class="mx-auto mt-4 prose comments ">
+<div class="dark:bg-remark-dark bg-remark-light">
+  <div class="py-4 mx-auto mt-4 prose comments md:py-6 lg:py-8">
     <div id="remark42"></div>
   </div>
 </div>
@@ -96,7 +96,7 @@ if (!!el) {
       theme: darkMode ? 'dark' : 'light', 
       locale: 'en', 
       show_email_subscription: true,
-      simple_view: false,
+      simple_view: true,
     };
   </script>
   <script type="text/javascript">
