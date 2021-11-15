@@ -54,16 +54,16 @@ me to setup a  static website build using Hugo:
 
 - **Golang and the Template Language**  
   I'm a huge fan and user of Golang - I'm programming nearly every day using it - and also
-  like the templating language that's built into the standart lib of 
+  like the templating language that's built into the standard lib of 
   [Go](https://pkg.go.dev/html/template). In contrast, I just don't like Ruby.
   I've worked on some Ruby based [Metasploit](https://www.metasploit.com/) modules some
   years ago and just could't make friends with it. 
 
 - **Dependencies**  
-  While the functionality of Jekyll can easily be extended using Ruby gems I hate fiddeling
+  While the functionality of Jekyll can easily be extended using Ruby gems I hate fiddling
   around with `bundler` and trying to get my ruby setup working. Hugo instead comes with
   batteries included and provides almost all features I needed to manually add to Jekyll.
-  Also, Hugo supports a module system that uses the dependecy management of 
+  Also, Hugo supports a module system that uses the dependency management of 
   Go - [Go Modules](https://go.dev/blog/using-go-modules) - under the hood and I'm already
   familiar with that (and really like the approach).
 
@@ -81,7 +81,7 @@ $ yay -S hugo-git
 Note that I normally use the `-git` version locally as it contains the latest bugfixes and features.
 
 For building the site in production I'm going to create a docker container that can get scheduled
-on our Nomad cluster using a specific version of Hugo - but that's someting for another post. 
+on our Nomad cluster using a specific version of Hugo - but that's something for another post. 
 
 Now that we have hugo installed we can create a new site and initialize a git repository for version
 control:
@@ -134,7 +134,7 @@ For Tailwind and PostCSS you need `nodejs` and `npm` installed. On Linux there s
 packages in your distribution's package repositories. For Archlinux a simple `pacman -S nodejs npm` is
 enough.
 
-Hugo expected PostCSS and all plugins to be installed locally. To avoid installing them globaly on your
+Hugo expected PostCSS and all plugins to be installed locally. To avoid installing them globally on your
 machine we'll setup a npm package directly inside the site directory. Answer all questions from npm as
 you like. You don't need to care about the entrypoint script.
 
@@ -255,7 +255,7 @@ Next we will create an `assets` folder that will hold our style definitions;
 mkdir -p assets
 ```
 
-In this folder, create a file called `styles.pcss` with the following content:
+In this folder, create a file called `styles.css` with the following content:
 
 ```scss
 @import 'tailwindcss/base.css';
@@ -284,7 +284,7 @@ it. Then place the following content into `baseof.html`:
 
 <head>
   {{ $options := dict "inlineImports" true }}
-  {{ $styles := resources.Get "styles.pcss" | resources.PostCSS $options }}
+  {{ $styles := resources.Get "styles.css" | resources.PostCSS $options }}
 
   {{ if hugo.IsProduction }}
   {{ $styles = $styles | minify | fingerprint | resources.PostProcess }}
@@ -305,10 +305,10 @@ it. Then place the following content into `baseof.html`:
 ```
 
 The above template uses a [Hugo Pipe](https://gohugo.io/hugo-pipes/introduction/) that transforms the
-`styles.pcss` resource using PostCSS.
+`styles.css` resource using PostCSS.
 
 ```go-html-template
-{{ $styles := resources.Get "styles.pcss" | resources.PostCSS $options }}
+{{ $styles := resources.Get "styles.css" | resources.PostCSS $options }}
 ```
 
 When Hugo is building the site for production it will also minify the CSS file and create a fingerprint
@@ -320,7 +320,7 @@ for HTML sub-resource integrity (SRI):
   {{ end }}
 ```
 
-Finally, it will embedd the resulting CSS directly. This is useful as the browser does not need to do an
+Finally, it will embed the resulting CSS directly. This is useful as the browser does not need to do an
 extra round-trip for loading the style definition and will increase page load speed.
 
 Finally, create the file `layouts/_default/single.html` that will be used to render most of your articles:

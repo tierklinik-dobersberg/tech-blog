@@ -2,7 +2,7 @@
 @import 'tailwindcss/components.css';
 @import 'tailwindcss/utilities.css';
 
-@import 'components/all.pcss';
+@import 'components/all.css';
 
 @layer base {
     pre {

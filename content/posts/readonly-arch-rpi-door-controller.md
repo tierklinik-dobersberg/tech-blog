@@ -7,8 +7,6 @@ tags: [linux, ansible, rpi]
 
 ## Introduction
 
-
-
 ## Prepare the SD-Card
 
 One of the first things we need to do is to setup the partitions on our new Mirco-SD card. Since the whole thing will be readonly afterwards I just create the bare minimum in terms of required partitions. That is, a `vfat?` formatted boot partition and a `ext4`  formatted partition that is going to hold the root filesystem.
@@ -126,4 +124,6 @@ To test if the inventory and password-less login works, let's execute Ansible's 
 
 ## Ansible Playbook and Roles
 
-Time to configure our Pi using Ansible. From here on, Ansible will take over the complete management and configuration of our Pi. Whenever you want to change something, update the Ansible configuration and re-play it on the Pi. If you ever 
+Time to configure our Pi using Ansible. From here on, Ansible will take over the complete management and configuration of our Pi. Whenever you want to change something, update the Ansible configuration and re-play it on the Pi. If you ever need to recreate the whole Pi because of a SD card or hardware failure you just need to complete the steps before. From here on, re-configuring the system is just a matter of executing `ansible-playbook`. 
+
+
