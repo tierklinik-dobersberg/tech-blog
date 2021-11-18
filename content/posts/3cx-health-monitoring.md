@@ -11,7 +11,7 @@ Automated health monitoring and alerting of our 3CX based phone system using Hea
 
 The phone system at our clinic is baked by a cloud-hosted 3CX appliance. 3CX is a Private Branch Exchange (PBX) for Voice-Over-IP (VoIP) that supports advanced call routing and application flows either using built-in features or by using custom "call flows" (written in C# or using their 3CX-Callflow Designer GUI). While we're very happy with 3CX as it fulfills our requirements - with a bunch of custom call-flows -  I was missing some kind of health-monitoring and alerting in case of unexpected situations like our SIP trunk being unavailable. 
 
-Thankfully I stumbled across [lexluga's 3cx-api](https://github.com/lexluga/3cx-api) repository on Github and decided to set up some basic system monitoring on my own. Since we already have a self-hosted version of [Healthchecks.io](//healthchecks.io) running in our cloud so it's obvious to re-use it for monitoring and alerting on the availability of 3CX as well.
+Thankfully I stumbled across [lexluga's 3cx-api](https://github.com/lexluga/3cx-api) repository on Github and decided to set up some basic system monitoring on my own. Since we already have a self-hosted version of [Healthchecks.io](//healthchecks.io) running in our cloud it's obvious to re-use it for monitoring and alerting on the availability of 3CX as well.
 
 Healthchecks.io does not perform active availability checks on it's own. Instead, it configures a "ping" URL that should be called on a regular interval by your application/backup scripts or whatever you want to monitor. If those regular pings are late or don't even arrive at all then the system counts the check as failed and send a notification through the configured notifiers (in our case, Matrix push notifications and SMS via Twilio). 
 
@@ -166,4 +166,4 @@ EOF
 
 I would normally use [periodic "batch" jobs](https://www.nomadproject.io/docs/job-specification/periodic) for that kind of workload but I'm planning to expose the CPU, Memory, Disk usage and some other 3CX metrics for our Prometheus/Grafana stack in the future so I'm running the above as a `type = "service"`.
 
-That's it for now. Whenever the 3CX goes offline, has hight CPU or memory usage or does not have at least 10 extensions registered I will get notified thourgh Matrix and SMS (via Healtchecks.io). 🎉
+That's it for now. Whenever the 3CX goes offline, has high CPU or memory usage or does not have at least 10 extensions registered I will get notified thourgh Matrix and SMS (via Healtchecks.io). 🎉
